@@ -1,40 +1,8 @@
-"NeoBundle Scripts-----------------------------
 if &compatible
   set nocompatible               " Be iMproved
 endif
 
-" Required:
-set runtimepath+=/home/stephen/.vim/bundle/neobundle.vim/
-
-" Required:
-call neobundle#begin(expand('/home/stephen/.vim/bundle'))
-
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" Add or remove your Bundles here:
-NeoBundle 'Shougo/neosnippet.vim'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'ctrlpvim/ctrlp.vim'
-NeoBundle 'flazz/vim-colorschemes'
-
-" You can specify revision/branch/tag.
-NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
-
-NeoBundle 'rust-lang/rust.vim'
-
-" Required:
-call neobundle#end()
-
-" Required:
 filetype plugin indent on
-
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
-"End NeoBundle Scripts-------------------------
 
 set rtp+=/usr/local/lib/python2.7/dist-packages/powerline/bindings/vim/
 
@@ -44,18 +12,57 @@ set laststatus=2
 " Use 256 colours (Use this setting only if your terminal supports 256 colours)
 set t_Co=256
 
+" Enable mouse for changing cursor position and choosing panes and scrolling
 set mouse=a
 
+" Show tabs and trailing whitespace
 set listchars=tab:>~,nbsp:_,trail:.
 set list
 
+" Pressing tab inserts spaces
 set expandtab
+" Controls indent operators
 set shiftwidth=4
+" Number of columns a tab represents in a file
 set tabstop=4
+" Backspace deletes spaces according to tab stops
+set softtabstop=4
 
+" Change file to unix line endings
 set ff=unix
 
-set colorcolumn=80
+" Subtly show a column that hints at long lines
+let &colorcolumn=join(range(81,999),",")
+set hlsearch
 
-colorscheme molokai
+" Show line numbers
+set nu
 
+" Highlight the line the cursor is currently on
+se cursorline
+
+" For vimdiff hide all syntax highlighting and only show differences
+if &diff
+    syntax off
+    highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+    highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+    highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+    highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
+else
+    syntax on
+    colorscheme mywolf
+    syntax match Braces display '[\.=,{}()\[\]\+\-\*\&\|\~\^\!\>\<\?]'
+    autocmd Syntax * syntax match Braces display '[\.=,{}()\[\]\+\-\*\&\|\~\^\!\>\<\?]'
+    hi def link Braces Operator
+endif
+
+if &filetype == "v"
+    setlocal noexpandtab noautoindent
+    autocmd FileType verilog setlocal noexpandtab
+endif
+
+" Use system clipboard
+set clipboard=unnamedplus
+
+" Make backspace not super dumb for inserts
+set backspace=indent,eol,start
