@@ -117,5 +117,4 @@ if ! shopt -oq posix; then
 fi
 
 export PATH=$PATH:/home/stephen/bin
-# PS1='\e[38;5;196m\u\s\e[39m:\e[38;5;214m\w\e[39m\$ '
-export PS1='\e[38;5;172m$(pwd)\e[39m$ '
+export PS1='\[\e[38;5;172m\]$(dirs)\[\e[39m\]$ '
