@@ -1,5 +1,8 @@
-if &compatible
-  set nocompatible               " Be iMproved
+set nocompatible               " Be iMproved
+
+" 256 color mode... doesn't seem to work
+if $COLORTERM == 'gnome-terminal'
+  set t_Co=256
 endif
 
 filetype plugin indent on
@@ -58,10 +61,8 @@ else
     "hi def link Braces Operator
 endif
 
-if &filetype == "v"
-    setlocal noexpandtab noautoindent
-    autocmd FileType verilog setlocal noexpandtab
-endif
+syntax on
+colorscheme mywolf
 
 " Use system clipboard
 set clipboard=unnamedplus
