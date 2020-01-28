@@ -96,3 +96,6 @@ set undofile
 
 " Don't have a CVE for old vim versions
 set nomodeline
+
+" Keep 10 lines below and above the cursor
+set scrolloff=10
